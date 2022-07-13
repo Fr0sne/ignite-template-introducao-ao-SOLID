@@ -59,7 +59,6 @@ describe("UsersRepository", () => {
       name: "Vinicius Fraga",
       email: "vinifraga@rocketseat.com",
     });
-
     const findUser = usersRepository.findByEmail(user.email);
 
     expect(findUser).toMatchObject({
