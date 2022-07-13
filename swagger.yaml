@@ -1,0 +1,105 @@
+swagger: '2.0'
+info:
+  title: API Title
+  version: '1.0'
+host: ignite.rocketseat.com.br
+basePath: /
+schemes:
+  - https
+paths:
+  /users:
+    post:
+      description: "Endpoint responsável pela criação do usuário."
+      schemes:
+        - http
+        - https
+      responses:
+        "201":
+          description: "Usuário criado com sucesso."
+        "400":
+          description: "Já existe um usuário cadastrado com esse email."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "user"
+          in: body
+          description: "Devem ser passados o email e o nome do novo usuário."
+          required: true
+          type: "object"
+          properties:
+            email:
+              type: string
+              example: gabriel@rocketseat.com
+            name:
+              type: string
+              example: Gabriel Davi
+    get:
+      parameters:
+        - in: header
+          name: user_id
+          type: string
+          example: 660e8919-5a74-4658-9028-d28ddf7c284a"
+          required: true
+      responses:
+        "200":
+          description: "Exibe todos os usuários"
+        "400":
+          description: "Não há permissões para executar a operação."
+      deprecated: false
+      x-42c-no-authentication: false
+      x-42c-mtls: false
+      x-42c-sensitivity: 3
+      x-42c-weight-input: 80
+      x-42c-weight-output: 20
+      x-42c-weight-parameters: 50
+      x-42c-weight-requestBody: 50
+  /users/{user_id}:
+    parameters:
+      - name: "user_id"
+        in: path
+        description: "Deve passar o id do usuário o qual vamos listar as informações."
+        required: true
+        type: "string"
+        example: "660e8919-5a74-4658-9028-d28ddf7c284a"
+
+    get:
+      responses:
+        "200":
+          description: "Exibe o perfil do usuário"
+        "404":
+          description: "Não existe usuário com esse id."
+      deprecated: false
+      x-42c-no-authentication: false
+      x-42c-mtls: false
+      x-42c-sensitivity: 3
+      x-42c-weight-input: 80
+      x-42c-weight-output: 20
+      x-42c-weight-parameters: 50
+      x-42c-weight-requestBody: 50
+      
+  /{user_id}/admin:
+    parameters:
+      - name: "user_id"
+        in: path
+        description: "Deve passar o id do usuário o qual vamos transformar em admin."
+        required: true
+        type: "string"
+        example: "660e8919-5a74-4658-9028-d28ddf7c284a"
+
+    patch:
+      responses:
+        "200":
+          description: "Transforma o usuário em admin."
+        "404":
+          description: "Não existe usuário com esse id."
+      deprecated: false
+      x-42c-no-authentication: false
+      x-42c-mtls: false
+      x-42c-sensitivity: 3
+      x-42c-weight-input: 80
+      x-42c-weight-output: 20
+      x-42c-weight-parameters: 50
+      x-42c-weight-requestBody: 50
+      
